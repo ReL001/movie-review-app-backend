@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId; //
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
 
@@ -24,5 +25,6 @@ public class Movie {
     private String poster;
     private List<String> genres;
     private List<String> backdrops;
+    @DocumentReference        // The @DocumentReference annotation is a part of Spring Data MongoDB, a module of Spring Framework. It is used to create a reference from one document to another in MongoDB.  In the context of your Movie class, the @DocumentReference annotation is used on the List<Review> reviewIds; field. This means that each Movie document in the MongoDB database will contain a list of references to Review documents. These references are typically stored as the _id of the Review documents.
     private List<Review> reviewIds;
 }
