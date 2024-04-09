@@ -1,13 +1,16 @@
 package com.example.Movies.Api;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController  // The @RestController annotation is a part of Spring MVC, a module of the Spring Framework. It is used at the class level to indicate that the class should be treated as a controller where every method returns a domain object instead of a view.  In the context of your MovieController class, the @RestController annotation indicates that this class is a RESTful controller. All handler methods in this class will have their return values written directly to the body of the HTTP response, rather than being interpreted as view names.
 @RequestMapping("/api/v1/movies") //The @RequestMapping annotation is a part of Spring MVC, a module of the Spring Framework. It is used at the class level or method level to map web requests onto specific handler classes or handler methods.  At the class level, @RequestMapping is used to provide a base URI for the controller. All methods in the controller will then be relative to this base URI.  At the method level, @RequestMapping is used to map a specific HTTP request method and URI to a handler method.
@@ -19,4 +22,20 @@ public class MovieController {
     public ResponseEntity<List<Movie>> getAllMovies(){
         return new ResponseEntity<List<Movie>>(movieService.allMovies(), HttpStatus.OK);
     }
+
+    @GetMapping("/search/{id}")
+    public ResponseEntity <Optional<Movie>> getSingleMovie(@PathVariable ObjectId id){
+        return new ResponseEntity<>(movieService.SingleMovie(id),HttpStatus.OK);
+    }
+
+    @GetMapping("/search/imdbId/{imdbId}")
+    public ResponseEntity <Optional<Movie>> getSingleMovieByImdbId(@PathVariable String imdbId){
+        return new ResponseEntity<>(movieService.SingleMoviebyImdbId(imdbId),HttpStatus.OK);
+    }
+
+    @GetMapping("/search/title/{title}")
+    public ResponseEntity<List<Movie>> getSingleMovieByTitle(@PathVariable String title){
+        return new ResponseEntity<>(movieService.SingleMovieByTitle(title),HttpStatus.OK);
+    }
+
 }

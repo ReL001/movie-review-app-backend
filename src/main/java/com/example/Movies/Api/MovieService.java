@@ -1,9 +1,11 @@
 package com.example.Movies.Api;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieService {
@@ -12,4 +14,17 @@ public class MovieService {
     public List<Movie> allMovies(){
         return MovieRepo.findAll();
     }
+
+    public Optional<Movie> SingleMovie(ObjectId id){
+        return MovieRepo.findById(id);
+    }
+
+    public Optional<Movie> SingleMoviebyImdbId(String imdbId){
+        return MovieRepo.findMovieByImdbId(imdbId);
+    }
+
+    public List<Movie> SingleMovieByTitle(String title){
+        return MovieRepo.findMovieByTitle(title);
+    }
+
 }
